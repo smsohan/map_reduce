@@ -16,9 +16,7 @@ def total_match_reducer(mapped_files)
   total_count = 0
 
   mapped_files.each do |mapped_file|
-    count_in_file = File.read(mapped_file).split[1].to_i
-    total_count += count_in_file
-    puts "#{mapped_file} #{count_in_file}"
+    total_count += File.read(mapped_file).split[1].to_i
   end
 
   total_count
