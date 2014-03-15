@@ -16,7 +16,9 @@ def total_match_reducer(mapped_files)
   total_count = 0
 
   mapped_files.each do |mapped_file|
-    total_count += File.read(mapped_file).split[1].to_i
+    count_in_file = File.read(mapped_file).split[1].to_i
+    total_count += count_in_file
+    puts "#{mapped_file} #{count_in_file}"
   end
 
   total_count
@@ -64,14 +66,14 @@ def max_length_reducer(mapped_files)
 end
 
 threads = []
-0.upto(9).each do |file_number|
+0.upto(10).each do |file_number|
   threads << Thread.new do
     match_finder(file_number, pattern)
-    max_length_word_finder(file_number)
+    # max_length_word_finder(file_number)
   end
 
 end
 threads.map(&:join)
 
 mapped_files = Dir.glob("mapped/*.txt")
-puts max_length_reducer(mapped_files)
+puts total_match_reducer(mapped_files)
